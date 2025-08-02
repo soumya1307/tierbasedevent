@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 
-
+// Creating API route to update user's Clerk metadata for tier
 export async function POST(req: Request) {
   const { userId } = await auth();
   const { tier } = await req.json();

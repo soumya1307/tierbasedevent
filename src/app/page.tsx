@@ -10,6 +10,7 @@ const raleway = Raleway({
   weight: ['200', '300', '400', '500', '600', '700']
 });
 
+// Landing page with application description
 export default function Home() {
   return (
     <section

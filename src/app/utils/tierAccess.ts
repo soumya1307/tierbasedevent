@@ -5,6 +5,7 @@ export const tierLevels = {
   Platinum: 3,
 };
 
+// Utility to determine the event access based on tier
 export function canAccess(userTier: keyof typeof tierLevels, eventTier: keyof typeof tierLevels): boolean {
   return tierLevels[userTier] >= tierLevels[eventTier];
 }

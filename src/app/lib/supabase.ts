@@ -1,3 +1,4 @@
+// Configuring Supabase to fetch data
 import { createClient } from '@supabase/supabase-js'
 
 export const supabase = createClient(

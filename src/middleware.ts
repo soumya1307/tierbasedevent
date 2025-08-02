@@ -1,3 +1,4 @@
+// Setup Clerk Middleware
 import { clerkMiddleware } from '@clerk/nextjs/server';
 
 export default clerkMiddleware();

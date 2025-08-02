@@ -17,6 +17,7 @@ export default function EventCard({ id, title, description, image_url, tier, eve
   };
 
   return (
+    // Maintaining the events info and blocking access to non-tier events
     <div className="relative rounded-xl overflow-hidden shadow transition hover:shadow-lg">
       {!accessible && (
         <div className="absolute top-0 left-0 w-full bg-black/70 text-white text-sm font-semibold text-center py-2 z-20">

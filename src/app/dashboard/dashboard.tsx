@@ -29,6 +29,7 @@ type Event = {
 
 const tiers = ['Free', 'Silver', 'Gold', 'Platinum'] as const;
 
+// Assigning styles for all tiers
 const tierColors: Record<typeof tiers[number], string> = {
   Free: 'bg-green-500 border-green-500 hover:bg-green-400',
   Silver: 'bg-zinc-500 border-zinc-500 hover:bg-zinc-400',
@@ -49,26 +50,27 @@ export default function Dashboard() {
   const [refreshToggle] = useState(false);
 
   useEffect(() => {
+    // Fetching events from Supabase
     const fetchEvents = async () => {
       const { data, error } = await supabase.from('events').select('*');
       if (error) {
         console.error("Supabase fetch error:", error.message);
         return;
       }
-
       const userTier = (user?.publicMetadata?.tier as string) || 'Free';
       const allEvents = data.map(event => ({
         ...event, accessible:
-        userTier in tierLevels && event.tier in tierLevels
-          ? canAccess(userTier as keyof typeof tierLevels, event.tier as keyof typeof tierLevels)
-          : false
-    }));
+          userTier in tierLevels && event.tier in tierLevels
+            ? canAccess(userTier as keyof typeof tierLevels, event.tier as keyof typeof tierLevels)
+            : false
+      }));
       setEvents(allEvents);
     };
 
     if (isLoaded && user) fetchEvents();
   }, [user, isLoaded, refreshToggle]);
 
+  // Updating user's Clerk metadata using the API
   const handleTierChange = async (tier: string) => {
     try {
       const res = await fetch('/api/updateTier', {
@@ -80,13 +82,13 @@ export default function Dashboard() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Unknown error');
 
-      console.log(`Tier updated to ${tier}`);
       window.location.reload();
     } catch (err) {
       console.error("Error changing tier:", err);
     }
   };
 
+  // Loading state and Checking if the user is signed in or not
   if (!isLoaded) return <div className={`${merri.className} p-6 text-center text-3xl`}>Loading...</div>;
   if (!user) return <div className={`${merri.className} p-6 text-center text-2xl`}>Sorry, You must be signed in to view the events</div>;
 
@@ -98,6 +100,7 @@ export default function Dashboard() {
   }));
 
   return (
+    // Displaying events dashboard
     <div className="p-4 sm:p-6 space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 className={`${merri.className} text-2xl font-semibold`}>
@@ -111,6 +114,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Buttons available to change the tier */}
       <div className={`${raleway.className} flex flex-wrap gap-2`}>
         {tiers.map(tier => {
           const isActive = tier === currentTier;
@@ -127,7 +131,8 @@ export default function Dashboard() {
           );
         })}
       </div>
-
+      
+      {/* Displaying events that can be accessed based on tier */}
       {groupedEvents.map(({ tier, events }) =>
         events.length > 0 ? (
           <section key={tier}>

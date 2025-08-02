@@ -13,6 +13,7 @@ const raleway = Raleway({
 
 export default function Navbar() {
   return (
+    // Displaying navbar with icon and application name
     <header className="text-teal-500 body-font">
       <div className="container mx-auto py-5 flex-row items-center justify-center sm:justify-start">
         <div className="flex items-center space-x-2">
