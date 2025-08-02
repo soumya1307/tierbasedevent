@@ -24,6 +24,7 @@ type Event = {
   image_url: string;
   tier: 'Free' | 'Silver' | 'Gold' | 'Platinum';
   event_date: string;
+  accessible: boolean;
 };
 
 const tiers = ['Free', 'Silver', 'Gold', 'Platinum'] as const;
@@ -56,12 +57,13 @@ export default function Dashboard() {
       }
 
       const userTier = (user?.publicMetadata?.tier as string) || 'Free';
-      const filteredEvents = data.filter(event =>
+      const allEvents = data.map(event => ({
+        ...event, accessible:
         userTier in tierLevels && event.tier in tierLevels
           ? canAccess(userTier as keyof typeof tierLevels, event.tier as keyof typeof tierLevels)
           : false
-      );
-      setEvents(filteredEvents);
+    }));
+      setEvents(allEvents);
     };
 
     if (isLoaded && user) fetchEvents();
@@ -101,7 +103,6 @@ export default function Dashboard() {
         <h1 className={`${merri.className} text-2xl font-semibold`}>
           Welcome to your events
         </h1>
-
         <div className={`${merri.className} text-xl sm:text-2xl`}>
           Your Tier is{' '}
           <span className={`${raleway.className} px-3 py-1 rounded-full text-white ${tierColors[currentTier as keyof typeof tierColors]}`}>
@@ -127,7 +128,6 @@ export default function Dashboard() {
         })}
       </div>
 
-      {/* Grouped Tier-wise Events */}
       {groupedEvents.map(({ tier, events }) =>
         events.length > 0 ? (
           <section key={tier}>
