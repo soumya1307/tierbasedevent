@@ -24,7 +24,7 @@ export default function Home() {
           <p className={`${raleway.className} text-base sm:text-lg md:text-xl text-black leading-relaxed p-5`}>
             Eventify is a dynamic tier-based event platform that curates and showcases
             exclusive events tailored to user membership levels — Free, Silver, Gold, and
-            Platinum. Whether you're looking for open-access webinars or high-tier
+            Platinum. Whether you&apos;re looking for open-access webinars or high-tier
             invite-only experiences, Eventify personalizes your dashboard to match your
             tier. With seamless authentication, real-time access control, and a responsive,
             modern UI, Eventify makes discovering and managing events effortless and engaging.

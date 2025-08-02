@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type Props = {
   id: string;
   title: string;
@@ -25,7 +27,7 @@ export default function EventCard({ id, title, description, image_url, tier, eve
         </div>
       )}
       <div className={accessible ? '' : 'blur-sm opacity-40 pointer-events-none select-none'}>
-        <img src={image_url} alt={title} className="w-full h-40 object-cover" />
+        <Image width={500} height={500} src={image_url} alt={title} className="w-full h-40 object-cover"/>
         <div key={id} className={`p-4 ${tierColors[tier]}`}>
           <h2 className="text-lg font-bold mb-1">{title}</h2>
           <p className="text-sm mb-2">{description}</p>

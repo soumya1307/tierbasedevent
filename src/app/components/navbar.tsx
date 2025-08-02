@@ -1,5 +1,6 @@
 import React from 'react';
 import { Merriweather_Sans, Raleway } from 'next/font/google';
+import Link from 'next/link';
 
 const merri = Merriweather_Sans({
   subsets: ['latin'],
@@ -17,7 +18,7 @@ export default function Navbar() {
     <header className="text-teal-500 body-font">
       <div className="container mx-auto py-5 flex-row items-center justify-center sm:justify-start">
         <div className="flex items-center space-x-2">
-          <a
+          <Link
             href="/"
             className="flex items-center text-teal-500 hover:text-teal-600 transition-colors"
           >
@@ -34,15 +35,15 @@ export default function Navbar() {
               <path d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2" />
             </svg>
             <span className={`${merri.className} ml-2 text-lg sm:text-2xl`}>Eventify</span>
-          </a>
+          </Link>
           <div className="border-l border-white h-6" />
           <nav className={`${raleway.className}`}>
-            <a
+            <Link
               href="/dashboard"
               className="pl-1 text-base hover:text-teal-600 transition-colors"
             >
               Events
-            </a>
+            </Link>
           </nav>
         </div>
       </div>
